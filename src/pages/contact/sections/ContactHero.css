@@ -1,24 +1,20 @@
-/* Hero */
 .contact-hero {
-  background: linear-gradient(135deg, #ff6b35, #ff9600);
-  padding: 120px 0 80px;
-  color: white;
+  padding: 56px 0 40px;
   text-align: center;
 }
-
 .contact-hero h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 20px;
+  margin: 18px 0 14px;
+  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  line-height: 1.45;
 }
-
+.contact-hero h1 em {
+  font-style: normal;
+  color: var(--brand);
+}
 .contact-hero p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-}
-
-@media (max-width: 768px) {
-  .contact-hero h1 {
-      font-size: 2.2rem;
-    }
+  max-width: 34rem;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 2;
+  color: var(--muted);
 }

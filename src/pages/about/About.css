@@ -1,5 +1,7 @@
-/* About.css */
 .about-page {
-  background: #f8f9fa;
-  min-height: 100vh;
+  padding-bottom: 20px;
+}
+
+.about-page section {
+  padding: 56px 0;
 }

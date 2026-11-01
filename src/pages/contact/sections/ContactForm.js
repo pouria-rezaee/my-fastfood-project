@@ -13,7 +13,7 @@ function ContactForm() {
   };
 
   const warn = (title, text) =>
-    Swal.fire({ icon: "warning", title, text, confirmButtonColor: "#ff6b35" });
+    Swal.fire({ icon: "warning", title, text, confirmButtonColor: "#ff6900" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,61 +31,75 @@ function ContactForm() {
       icon: "success",
       title: "پیام شما ارسال شد",
       text: "به زودی با شما تماس خواهیم گرفت",
-      confirmButtonColor: "#ff6b35",
+      confirmButtonColor: "#ff6900",
     });
     setForm(EMPTY);
   };
 
   return (
-    <div className="contact-form">
-      <h2>پیام بدهید</h2>
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <h2>برامون بنویس</h2>
+      <p className="contact-form-sub">
+        فرم زیر رو پر کن تا پیامت به دست ما برسه.
+      </p>
 
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form-group">
+      <div className="cf-row">
+        <div className="cf-field">
+          <label htmlFor="cf-name">نام شما</label>
           <input
+            id="cf-name"
             type="text"
             name="name"
+            autoComplete="name"
             value={form.name}
             onChange={handleChange}
-            placeholder="نام شما"
+            placeholder="مثلاً: علی رضایی"
           />
         </div>
-
-        <div className="form-group">
+        <div className="cf-field">
+          <label htmlFor="cf-phone">شماره تماس (اختیاری)</label>
           <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="ایمیل شما"
-          />
-        </div>
-
-        <div className="form-group">
-          <input
+            id="cf-phone"
             type="tel"
             name="phone"
+            autoComplete="tel"
             value={form.phone}
             onChange={handleChange}
-            placeholder="شماره تماس"
+            placeholder="09xxxxxxxxx"
           />
         </div>
+      </div>
 
-        <div className="form-group">
-          <textarea
-            name="message"
-            value={form.message}
-            onChange={handleChange}
-            placeholder="پیام شما..."
-            rows="5"
-          ></textarea>
-        </div>
+      <div className="cf-field">
+        <label htmlFor="cf-email">ایمیل</label>
+        <input
+          id="cf-email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="example@mail.com"
+          dir="ltr"
+        />
+      </div>
 
-        <button type="submit" className="submit-btn">
-          ارسال پیام
-        </button>
-      </form>
-    </div>
+      <div className="cf-field">
+        <label htmlFor="cf-message">پیام</label>
+        <textarea
+          id="cf-message"
+          name="message"
+          rows="5"
+          value={form.message}
+          onChange={handleChange}
+          placeholder="پیامت رو اینجا بنویس..."
+        ></textarea>
+      </div>
+
+      <button type="submit" className="cf-submit">
+        ارسال پیام
+      </button>
+    </form>
   );
 }
 

@@ -4,10 +4,14 @@ function ContactHero() {
   return (
     <section className="contact-hero">
       <div className="container">
-        <div className="contact-hero-content">
-          <h1>تماس با ما</h1>
-          <p>ما اینجا هستیم تا کمک کنیم</p>
-        </div>
+        <span className="eyebrow">تماس با ما</span>
+        <h1>
+          حرفی داری؟ <em>بگو، گوش می‌دیم</em>
+        </h1>
+        <p>
+          سؤال، پیشنهاد یا انتقاد؛ هر چی هست برامون بنویس. معمولاً کمتر از یه
+          روز کاری جواب می‌دیم.
+        </p>
       </div>
     </section>
   );

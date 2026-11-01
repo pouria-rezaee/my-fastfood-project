@@ -1,4 +1,7 @@
-* {
-  /* font-family: "IranianSans", Tahoma, sans-serif; */
-  font-family: sans-serif;
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-sans);
 }

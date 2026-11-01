@@ -60,11 +60,7 @@ function Navbar() {
         <div className="sub-container-right">
           <div className="icons">
             <NavLink to="/cart" className="cart-link" aria-label="سبد خرید">
-              <img
-                style={{ width: 25, marginTop: -12 }}
-                src={cartlogo}
-                alt="سبد خرید"
-              />
+              <img className="cart-icon" src={cartlogo} alt="" />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </NavLink>
           </div>

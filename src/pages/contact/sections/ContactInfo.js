@@ -4,31 +4,30 @@ import "./ContactInfo.css";
 function ContactInfo() {
   const settings = useSettings();
 
+  const items = [
+    { icon: "📍", label: "آدرس", lines: [settings.address] },
+    { icon: "📞", label: "تلفن", lines: [settings.phone, settings.mobile] },
+    {
+      icon: "✉️",
+      label: "ایمیل",
+      lines: [settings.email, settings.supportEmail],
+    },
+    { icon: "🕒", label: "ساعات کاری", lines: [settings.hours] },
+  ];
+
   return (
-    <div className="contact-info">
-      <h2>اطلاعات تماس</h2>
-
-      <div className="info-item">
-        <h3>آدرس</h3>
-        <p>{settings.address}</p>
-      </div>
-
-      <div className="info-item">
-        <h3>تلفن</h3>
-        <p>{settings.phone}</p>
-        <p>{settings.mobile}</p>
-      </div>
-
-      <div className="info-item">
-        <h3>ایمیل</h3>
-        <p>{settings.email}</p>
-        <p>{settings.supportEmail}</p>
-      </div>
-
-      <div className="info-item">
-        <h3>ساعات کاری</h3>
-        <p>{settings.hours}</p>
-      </div>
+    <div className="contact-cards">
+      {items.map((item) => (
+        <div key={item.label} className="contact-card">
+          <div className="contact-card-icon">{item.icon}</div>
+          <div>
+            <span className="contact-card-label">{item.label}</span>
+            {item.lines.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

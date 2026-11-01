@@ -1,20 +1,56 @@
 import "./AboutStory.css";
 
+// محتوای نمونه؛ هر زمان خواستی می‌تونی سال‌ها و متن‌ها رو عوض کنی
+const MILESTONES = [
+  {
+    year: "۱۳۹۵",
+    title: "شروع ماجرا",
+    text: "یه آشپزخونه‌ی کوچیک و یه آرزو: ساختن بهترین برگر شهر.",
+  },
+  {
+    year: "۱۳۹۸",
+    title: "منوی اختصاصی",
+    text: "دستور پخت‌ها و سس‌های دست‌ساز خودمون رو ثبت کردیم.",
+  },
+  {
+    year: "۱۴۰۱",
+    title: "سفارش آنلاین",
+    text: "تحویل سریع به سراسر شهر و پرداخت راحت از خونه.",
+  },
+  {
+    year: "۱۴۰۵",
+    title: "امروز",
+    text: "بیش از ۵۰۰۰ مشتری راضی و منویی با ۵۰ محصول متنوع.",
+  },
+];
+
 function AboutStory() {
   return (
     <section className="about-story">
       <div className="container">
-        <div className="story-content">
-          <h2>چطور شروع کردیم؟</h2>
+        <div className="section-head">
+          <span className="eyebrow">مسیر ما</span>
+          <h2>از یه ایده‌ی ساده تا کافه‌ای که دوستش دارید</h2>
           <p>
-            در سال ۱۴۰۰، با یک آرزو شروع کردیم: ساختن بهترین برگر شهر. نه فقط یک
-            برگر معمولی، بلکه تجربه‌ای کامل از طعم و لذت.
-          </p>
-          <p>
-            امروز افتخار می‌کنیم که با مواد اولیه درجه یک و دستور پخت خاص،
-            برگرهایی می‌سازیم که مشتریانمان عاشق آن‌ها هستند.
+            هر قدم رو با یه هدف برداشتیم: اینکه هر لقمه، طعمی قابل اعتماد داشته
+            باشه.
           </p>
         </div>
+
+        <ol className="timeline">
+          {MILESTONES.map((m, i) => (
+            <li key={m.year} className="timeline-item">
+              <span className="timeline-dot">
+                {(i + 1).toLocaleString("fa-IR")}
+              </span>
+              <div className="timeline-card">
+                <b className="timeline-year">{m.year}</b>
+                <h3>{m.title}</h3>
+                <p>{m.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

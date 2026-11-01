@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { isAdmin } from "../../utils/auth";
 import cartlogo from "../../assets/images/icons/icons8-cart-48.png";
 import { NAV_LINKS } from "./navLinks";
 import "./MobileMenu.css";
@@ -19,6 +20,13 @@ function MobileMenu({
       ></div>
 
       <div className={`mobile-menu ${open ? "active" : ""}`}>
+        <button
+          className="mobile-close"
+          onClick={onClose}
+          aria-label="بستن منو"
+        >
+          ✕
+        </button>
         <ul>
           {NAV_LINKS.map((link) => (
             <li key={link.to}>
@@ -31,12 +39,17 @@ function MobileMenu({
 
         <div className="mobile-menu-actions">
           <NavLink to="/cart" className="mobile-cart" onClick={onClose}>
-            <img style={{ width: 25 }} src={cartlogo} alt="سبد خرید" />
+            <img src={cartlogo} alt="" />
             <span>سبد خرید {cartCount > 0 && `(${cartCount})`}</span>
           </NavLink>
 
           {currentUser ? (
             <div className="mobile-user">
+              {isAdmin(currentUser) && (
+                <NavLink to="/admin" onClick={onClose}>
+                  ⚙️ پنل مدیریت
+                </NavLink>
+              )}
               <NavLink to="/profile" onClick={onClose}>
                 👤 {currentUser}
               </NavLink>

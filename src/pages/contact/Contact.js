@@ -1,6 +1,7 @@
 import ContactHero from "./sections/ContactHero";
 import ContactInfo from "./sections/ContactInfo";
 import ContactForm from "./sections/ContactForm";
+import ContactFaq from "./sections/ContactFaq";
 import "./Contact.css";
 
 function Contact() {
@@ -9,12 +10,13 @@ function Contact() {
       <ContactHero />
       <section className="contact-main">
         <div className="container">
-          <div className="contact-grid">
+          <div className="contact-layout">
             <ContactInfo />
             <ContactForm />
           </div>
         </div>
       </section>
+      <ContactFaq />
     </div>
   );
 }

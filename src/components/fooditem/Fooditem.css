@@ -6,7 +6,8 @@
 
 .why-us-card {
   background: #fff;
-  border: 1px solid #eee;
+  /* border: 2px solid #eee; */
+  /* box-shadow: 0 0 2px 2px #ff9600; */
   border-radius: 14px;
   padding: 30px 20px;
   text-align: center;
