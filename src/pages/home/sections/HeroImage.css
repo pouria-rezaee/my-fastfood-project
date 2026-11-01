@@ -1,0 +1,27 @@
+/* Hero Image */
+.hero-image {
+  animation: fadeIn 0.8s ease 0.2s both;
+}
+
+.image-container {
+  position: relative;
+  max-width: 600px;
+  margin: -65px auto 0;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  /* box-shadow: var(--shadow-lg); */
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

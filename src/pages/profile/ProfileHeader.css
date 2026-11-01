@@ -1,0 +1,67 @@
+/* هدر پروفایل */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 25px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6900, #ff9248);
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-header h2 {
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+  color: #222;
+}
+
+.profile-username {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.profile-logout-btn {
+  margin-right: auto;
+  border: 1px solid #e63946;
+  background: #fff;
+  color: #e63946;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-logout-btn:hover {
+  background: #e63946;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .profile-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+  .profile-logout-btn {
+      margin-right: 0;
+      width: 100%;
+    }
+}

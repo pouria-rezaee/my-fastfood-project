@@ -1,0 +1,124 @@
+.adm-shell {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+  background: #f5f6f8;
+}
+
+.adm-sidebar {
+  background: #1f2430;
+  color: #cfd3dc;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.adm-brand {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 6px 10px 20px;
+}
+
+.adm-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.adm-nav-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #cfd3dc;
+  text-decoration: none;
+  padding: 11px 12px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.adm-nav-item:hover {
+  background: #2a3040;
+}
+
+.adm-nav-item.active {
+  background: #ff6900;
+  color: #fff;
+}
+
+.adm-badge {
+  background: #e63946;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 1px 8px;
+}
+
+.adm-side-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 10px 0;
+  border-top: 1px solid #323a4d;
+}
+
+.adm-side-foot a {
+  color: #cfd3dc;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.adm-side-foot button {
+  background: transparent;
+  border: 1px solid #55607a;
+  color: #cfd3dc;
+  border-radius: 8px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.adm-main {
+  padding: 26px 30px 60px;
+  min-width: 0;
+}
+
+.adm-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+@media (max-width: 900px) {
+  .adm-shell {
+      grid-template-columns: 1fr;
+    }
+  
+  .adm-sidebar {
+      position: static;
+      height: auto;
+      padding: 12px;
+    }
+  
+  .adm-sidebar nav {
+      flex-direction: row;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+  
+  .adm-nav-item {
+      white-space: nowrap;
+      gap: 8px;
+    }
+  
+  .adm-side-foot {
+      margin-top: 6px;
+    }
+  
+  .adm-main {
+      padding: 18px 14px 50px;
+    }
+}

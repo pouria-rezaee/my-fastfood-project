@@ -1,0 +1,8 @@
+.adm-msg.unread {
+  border-right: 4px solid #ff6900;
+}
+
+.adm-msg-text {
+  margin: 8px 0 12px;
+  line-height: 1.9;
+}

@@ -1,0 +1,23 @@
+/* تب‌های پنل کاربری */
+.profile-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.profile-tab {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  border: 1px solid #eee;
+  background: #fff;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.profile-tab.active {
+  background: #ff6900;
+  border-color: #ff6900;
+  color: #fff;
+}

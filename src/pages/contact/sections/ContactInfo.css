@@ -1,0 +1,40 @@
+.contact-info h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.info-item {
+  margin-bottom: 30px;
+}
+
+.info-item h3 {
+  font-size: 1.2rem;
+  color: #ff6b35;
+  margin-bottom: 10px;
+}
+
+.info-item p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 992px) {
+  .contact-info h2 {
+      text-align: center;
+    }
+  
+  .contact-info h2::after {
+      right: 50%;
+      transform: translateX(50%);
+    }
+}
+
+@media (max-width: 768px) {
+  .contact-info h2 {
+      font-size: 1.8rem;
+    }
+}

@@ -1,0 +1,15 @@
+/* منوها */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+/* زمانی که صفحه خیلی کوچک باشه، منوها در یک ستون بیان */
+@media (max-width: 576px) {
+  .menu {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}

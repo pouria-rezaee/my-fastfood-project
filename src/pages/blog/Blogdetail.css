@@ -1,0 +1,599 @@
+/* ==================== متغیرها ==================== */
+:root {
+  --bd-orange: #ff6900;
+  --bd-orange-light: #ff9600;
+  --bd-ink: #111827;
+  --bd-ink-2: #4b5563;
+  --bd-card: #ffffff;
+  --bd-border: #ececec;
+  --bd-nav-h: 80px; /* ارتفاع نوبار — اگر نوبار شما فرق دارد این را تنظیم کنید */
+}
+
+/* ==================== نوار پیشرفت ==================== */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 1100; /* بالاتر از نوبار */
+  background: transparent;
+}
+.reading-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--bd-orange), var(--bd-orange-light));
+  box-shadow: 0 0 14px rgba(255, 105, 0, 0.55);
+  transition: width 0.08s linear;
+}
+
+/* ==================== هیرو ==================== */
+.bd-hero {
+  position: relative;
+  height: 68vh;
+  min-height: 460px;
+  max-height: 720px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.bd-hero--no-cover {
+  height: 52vh;
+  min-height: 380px;
+}
+
+.bd-hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  animation: heroZoom 14s ease-out forwards;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+.bd-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+.bd-hero__gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 150, 0, 0.45),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 105, 0, 0.55),
+      transparent 55%
+    ),
+    linear-gradient(135deg, #1a0f05 0%, #2a1508 60%, #3d1f0a 100%);
+  background-size:
+    200% 200%,
+    200% 200%,
+    100% 100%;
+  animation: gradientShift 10s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 0%;
+  }
+  100% {
+    background-position:
+      100% 100%,
+      0% 0%,
+      100% 100%;
+  }
+}
+
+.bd-hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 24px 72px;
+  text-align: center;
+  color: #fff;
+  animation: heroIn 1s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bd-hero__cat {
+  display: inline-block;
+  padding: 6px 18px;
+  background: var(--bd-orange);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 22px rgba(255, 105, 0, 0.5);
+}
+
+.bd-hero__title {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.22;
+  margin: 0 0 26px;
+  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+}
+
+.bd-hero__meta {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.bg-hero__meta_time{
+  margin-bottom: 2n0px;
+  font-size: 20px;
+}
+
+/* ==================== بدنه — بدون رنگ سفارشی ==================== */
+.bd-main-wrapper {
+  /* بدون background — پس‌زمینه اصلی سایت دیده می‌شود */
+  padding-bottom: 80px;
+}
+
+.bd-layout {
+  max-width: 1180px;
+  margin: -60px auto 0;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 260px 1fr; /* سایدبار چپ */
+  gap: 36px;
+  position: relative;
+  z-index: 10;
+  align-items: start;
+}
+
+/* ==================== سایدبار (سمت چپ) ==================== */
+.bd-sidebar {
+  position: sticky;
+  /* فاصله از بالا = ارتفاع نوبار + فاصله تنفس */
+  top: calc(var(--bd-nav-h) + 16px);
+  /* بالاتر از محتوا ولی زیر نوبار */
+  z-index: 5;
+  max-height: calc(100vh - var(--bd-nav-h) - 32px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* اسکرول بار نازک */
+.bd-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.bd-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 105, 0, 0.3);
+  border-radius: 4px;
+}
+
+.toc-card {
+  background: var(--bd-card);
+  border-radius: 18px;
+  padding: 22px 18px;
+  border: 1px solid var(--bd-border);
+  box-shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.15);
+  animation: riseIn 0.7s 0.25s ease both;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toc-card__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--bd-ink);
+  padding-bottom: 16px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--bd-border);
+  letter-spacing: 0.3px;
+}
+
+.toc-card__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bd-orange);
+  box-shadow: 0 0 0 4px rgba(255, 105, 0, 0.15);
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toc-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: right;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: var(--bd-ink-2);
+  font-size: 13.5px;
+  line-height: 1.6;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  /* جلوگیری از رفتن اعداد و متن به هم */
+  direction: rtl;
+}
+
+.toc-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #c4c4c4;
+  flex-shrink: 0;
+  min-width: 20px;
+  font-variant-numeric: tabular-nums;
+  direction: ltr; /* اعداد لاتین */
+  unicode-bidi: isolate;
+  transition: color 0.2s;
+}
+
+.toc-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toc-link:hover {
+  background: #fff4e9;
+  color: var(--bd-orange);
+}
+.toc-link:hover .toc-num {
+  color: var(--bd-orange);
+}
+
+.toc-link.is-active {
+  color: var(--bd-orange);
+  font-weight: 700;
+}
+.toc-link.is-active .toc-num {
+  color: var(--bd-orange);
+}
+
+.toc-link.is-active::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--bd-orange);
+}
+
+/* ==================== محتوا ==================== */
+.blog-detail-content {
+  background: var(--bd-card);
+  border-radius: 20px;
+  padding: clamp(28px, 4.5vw, 52px);
+  border: 1px solid var(--bd-border);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.12);
+  animation: riseIn 0.7s 0.2s ease both;
+}
+
+.bd-p {
+  font-size: clamp(15.5px, 1.6vw, 17.5px);
+  line-height: 2.05;
+  color: var(--bd-ink-2);
+  margin: 0 0 22px;
+}
+
+/* ---------- تیترهای h3 اصلاح‌شده ---------- */
+.bd-h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(18px, 2.1vw, 22px);
+  font-weight: 800;
+  color: var(--bd-ink);
+  margin: 38px 0 18px;
+  padding: 14px 18px 14px 16px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-right: 4px solid var(--bd-orange);
+  scroll-margin-top: calc(var(--bd-nav-h) + 20px);
+  transition: all 0.25s ease;
+  position: relative;
+  line-height: 1.5;
+}
+
+.bd-h3:hover {
+  background: linear-gradient(90deg, #ffeed9 0%, #fff6ec 100%);
+  border-right-color: var(--bd-orange-light);
+  transform: translateX(-2px);
+}
+
+/* شماره لاتین داخل تیتر */
+.bd-h3__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  background: var(--bd-orange);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 8px;
+  flex-shrink: 0;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 4px 12px -2px rgba(255, 105, 0, 0.5);
+}
+
+.bd-h3__text {
+  flex: 1;
+}
+
+/* ==================== لیست ==================== */
+.bd-ul {
+  list-style: none;
+  margin: 0 0 26px;
+  padding: 0;
+}
+
+.bd-ul li {
+  position: relative;
+  padding-right: 28px;
+  margin-bottom: 14px;
+  font-size: clamp(14.5px, 1.5vw, 16.5px);
+  line-height: 1.85;
+  color: var(--bd-ink-2);
+}
+
+.bd-ul li::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bd-orange);
+  box-shadow: 0 0 0 3px rgba(255, 105, 0, 0.15);
+}
+
+/* ==================== فوتر ==================== */
+.bd-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px 70px;
+}
+
+.blog-detail-back-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--bd-orange);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.back_btn_arrow {
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--bd-orange);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px -6px rgba(255, 105, 0, 0.7);
+  transition: all 0.25s ease;
+}
+
+.back_btn_arrow h2 {
+  margin-bottom: 7px;
+  font-size: 25px;
+}
+
+.back_btn_arrow:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 12px 26px -6px rgba(255, 105, 0, 0.9);
+}
+
+/* ==================== دکمه بالا ==================== */
+.scroll-top {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bd-orange);
+  color: #fff;
+  font-size: 19px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(18px) scale(0.85);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 28px -6px rgba(255, 105, 0, 0.7);
+  z-index: 50;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: var(--bd-orange-light);
+}
+
+/* ==================== Not Found ==================== */
+.blog-notfound {
+  text-align: center;
+  padding: 120px 20px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.blog-notfound__emoji {
+  font-size: 64px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.blog-notfound h2 {
+  color: var(--bd-orange);
+  margin: 0;
+}
+
+.blog-notfound p {
+  color: var(--bd-ink-2);
+  margin: 0 0 12px;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 900px) {
+  .bd-layout {
+    grid-template-columns: 1fr;
+    margin-top: -40px;
+  }
+  .bd-sidebar {
+    position: static;
+    order: 2;
+    max-height: none;
+    overflow: visible;
+  }
+  .toc-card {
+    display: none;
+  }
+  .bd-hero {
+    height: 55vh;
+    min-height: 400px;
+  }
+  .bd-hero__content {
+    padding-bottom: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bd-hero__title {
+    font-size: 24px;
+  }
+  .bd-hero__meta {
+    gap: 12px;
+    font-size: 12px;
+  }
+  .bd-layout {
+    padding: 0 16px;
+  }
+  .blog-detail-content {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  .bd-p,
+  .bd-ul li {
+    font-size: 15px;
+  }
+  .bd-h3 {
+    font-size: 17px;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+  .bd-h3__num {
+    min-width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+  .scroll-top {
+    bottom: 20px;
+    left: 20px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* احترام به کاهش حرکت */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

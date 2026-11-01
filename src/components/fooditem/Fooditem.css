@@ -1,0 +1,54 @@
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.why-us-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 30px 20px;
+  text-align: center;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.why-us-card:nth-child(2n){
+  margin-top: 40px;
+}
+
+.why-us-card:nth-child(3){
+  margin-top: 80px;
+}
+
+.why-us-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+.why-us-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff1e8;
+  color: #ff6b35;
+}
+
+.why-us-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.why-us-desc {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1.6;
+}

@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "IranianSans";
+  src: url("./assets/fonts/IranianSans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  outline: none;
+}
+html {
+  scroll-padding-top: 80px;
+}

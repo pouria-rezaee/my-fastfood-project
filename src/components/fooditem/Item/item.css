@@ -1,0 +1,13 @@
+.food-icon {
+  max-width: 70%;
+  color: #ff9600;
+  font-size: 80px;
+  margin: 0 auto !important;
+}
+.item3 {
+  transform: translateY(40px);
+}
+.item2,
+.item4 {
+  transform: translateY(20px);
+}

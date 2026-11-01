@@ -1,0 +1,26 @@
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.username-label {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.username-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 110px;
+  font-size: 14px;
+  color: var(--dark-gray);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.username-label:hover {
+  color: var(--primary-orange);
+}

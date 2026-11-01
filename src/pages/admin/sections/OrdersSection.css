@@ -1,0 +1,63 @@
+.adm-order-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.adm-order-head small {
+  display: block;
+  color: #888;
+  margin-top: 2px;
+}
+
+.adm-order-side {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.adm-order-body {
+  border-top: 1px dashed #e5e5e5;
+  margin-top: 14px;
+  padding-top: 14px;
+  line-height: 1.9;
+  font-size: 14px;
+}
+
+.adm-order-body h4 {
+  margin: 12px 0 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+.adm-items,
+.adm-history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.adm-items li {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.adm-history li small {
+  color: #999;
+  margin-right: 6px;
+}
+
+.adm-status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.adm-status-row .adm-input {
+  max-width: 220px;
+}

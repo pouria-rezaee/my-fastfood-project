@@ -1,0 +1,272 @@
+.profile-page {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto 60px;
+}
+
+/* هدر پروفایل */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 25px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6900, #ff9248);
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-header h2 {
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+  color: #222;
+}
+
+.profile-username {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.profile-logout-btn {
+  margin-right: auto;
+  border: 1px solid #e63946;
+  background: #fff;
+  color: #e63946;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-logout-btn:hover {
+  background: #e63946;
+  color: #fff;
+}
+
+/* گرید کارت‌ها */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.profile-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 25px;
+}
+
+.profile-card h3 {
+  margin: 0 0 18px;
+  font-size: 1.1rem;
+  color: #222;
+  border-bottom: 2px solid #fff1e8;
+  padding-bottom: 12px;
+}
+
+.profile-form-group {
+  margin-bottom: 15px;
+}
+
+.profile-form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.profile-form-group input,
+.profile-form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.profile-form-group input:focus,
+.profile-form-group textarea:focus {
+  outline: none;
+  border-color: #ff6900;
+}
+
+.profile-form-group textarea {
+  resize: vertical;
+}
+
+.profile-save-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff6900;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.profile-save-btn:hover {
+  background-color: #e55a00;
+}
+
+/* کارت سفارش‌ها */
+.profile-orders-card {
+  grid-column: 1 / -1;
+}
+
+.profile-empty-orders {
+  color: #888;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  text-align: center;
+  padding: 20px 0;
+}
+
+@media (max-width: 600px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .profile-logout-btn {
+    margin-right: 0;
+    width: 100%;
+  }
+}
+/* تب‌های پنل کاربری */
+.profile-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+.profile-tab {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  border: 1px solid #eee;
+  background: #fff;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 15px;
+}
+.profile-tab.active {
+  background: #ff6900;
+  border-color: #ff6900;
+  color: #fff;
+}
+
+/* لیست سفارش‌ها */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.order-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+.order-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.order-head small,
+.order-pay {
+  display: block;
+  color: #888;
+  margin-top: 2px;
+}
+.order-tracker {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0 16px;
+  position: relative;
+}
+.order-step {
+  flex: 1;
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
+}
+.order-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ddd;
+  margin: 0 auto 4px;
+}
+.order-step.done {
+  color: #2e7d32;
+}
+.order-step.done .order-dot {
+  background: #2e7d32;
+}
+.order-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.order-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px dashed #e5e5e5;
+  padding-top: 12px;
+}
+.order-total {
+  font-weight: bold;
+}
+.order-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.order-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+.order-btn.primary {
+  background: #ff6900;
+  border-color: #ff6900;
+  color: #fff;
+}
+.order-btn.danger {
+  border-color: #e63946;
+  color: #e63946;
+}

@@ -1,0 +1,477 @@
+/* =========================================================
+   FOOTER — Modern White + Orange
+   ========================================================= */
+
+.footer {
+  position: relative;
+  margin-top: 100px;
+  color: #3a3a3a;
+}
+
+/* =========================================================
+   BODY (orange gradient background)
+   ========================================================= */
+.footer-body {
+  position: relative;
+  background: linear-gradient(135deg, #ff9600 0%, #ff7a00 55%, #ff5e00 100%);
+  color: #fff;
+  padding: 40px 0 0;
+  overflow: hidden;
+}
+
+/* Decorative blurred blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.blob-1 {
+  width: 320px;
+  height: 320px;
+  background: #ffd38a;
+  top: -80px;
+  right: -60px;
+}
+.blob-2 {
+  width: 260px;
+  height: 260px;
+  background: #ffb340;
+  bottom: -100px;
+  left: -80px;
+}
+
+/* Inner container */
+.footer-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 30px 30px 0;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr;
+  gap: 48px;
+  padding-bottom: 44px;
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+.f-brand {
+  max-width: 430px;
+}
+
+.f-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 1.85rem;
+  font-weight: 900;
+  margin-bottom: 14px;
+  transition: transform 0.3s ease;
+}
+.f-logo:hover {
+  transform: translateY(-2px);
+}
+
+.f-logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: #fff;
+  color: #ff9600;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.f-logo b {
+  color: #fff;
+  font-weight: 900;
+}
+.f-logo em {
+  color: #fff3d6;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.f-tagline {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin: 0 0 24px;
+}
+
+/* =========================================================
+   NEWSLETTER CARD (glass)
+   ========================================================= */
+.f-newsletter {
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.f-newsletter:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.f-newsletter-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.f-nl-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: #ff7a00;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.f-newsletter-head strong {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #fff;
+}
+.f-newsletter-head small {
+  display: block;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 2px;
+}
+
+.f-nl-form {
+  display: flex;
+  gap: 8px;
+  direction: rtl;
+}
+.f-nl-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  font-size: 0.9rem;
+  text-align: right;
+  transition:
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+.f-nl-input::placeholder {
+  color: #b7b7b7;
+}
+.f-nl-input:focus {
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+.f-nl-btn {
+  flex-shrink: 0;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  color: #ff7a00;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.f-nl-btn:hover {
+  background: #fff3d6;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.f-nl-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+.f-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 22px;
+}
+.f-heading span {
+  width: 6px;
+  height: 22px;
+  border-radius: 4px;
+  background: #fff3d6;
+  box-shadow: 0 0 12px rgba(255, 243, 214, 0.8);
+}
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+.f-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.f-links a {
+  position: relative;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.93rem;
+  padding: 7px 0 7px 20px;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+.f-links a::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  width: 10px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.25s ease;
+}
+.f-links a:hover {
+  color: #fff;
+  transform: translateX(-4px);
+}
+.f-links a:hover::before {
+  transform: translateY(-50%) scale(1);
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+.f-contact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.f-contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+.f-ci {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  font-style: normal;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+.f-contact li:hover .f-ci {
+  background: #fff;
+  color: #ff7a00;
+  transform: scale(1.08) rotate(-4deg);
+  border-color: #fff;
+}
+.f-contact a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.f-contact a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+.f-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  margin: 0 0 22px;
+}
+
+/* =========================================================
+   BOTTOM
+   ========================================================= */
+.f-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 26px;
+}
+.f-copy {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.f-copy strong {
+  color: #fff3d6;
+  font-weight: 800;
+}
+
+.f-chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 7px 13px;
+  border-radius: 999px;
+  transition: all 0.25s ease;
+}
+.chip:hover {
+  background: #fff;
+  color: #ff7a00;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .f-brand {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    margin-top: 70px;
+  }
+  .footer-inner {
+    padding: 20px 20px 0;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 30px;
+  }
+  .f-bottom {
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 22px;
+  }
+  .f-chips {
+    justify-content: center;
+  }
+  .f-logo {
+    font-size: 1.55rem;
+  }
+  .f-logo-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .f-nl-form {
+    flex-direction: column;
+  }
+  .f-nl-btn {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   ENTRY ANIMATION
+   ========================================================= */
+@keyframes footerUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.f-brand,
+.f-col,
+.f-bottom {
+  animation: footerUp 0.7s ease-out both;
+}
+.f-col:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+.f-col:nth-of-type(3) {
+  animation-delay: 0.2s;
+}
+.f-bottom {
+  animation-delay: 0.3s;
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .f-brand,
+  .f-col,
+  .f-bottom {
+    animation: none;
+  }
+  .f-newsletter:hover,
+  .chip:hover,
+  .f-logo:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,25 @@
+.blog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #ff6900;
+  margin-bottom: 50px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+  .blog-title {
+      font-size: 2rem;
+    }
+}

@@ -1,0 +1,34 @@
+/* گرید کارت‌ها */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.profile-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 25px;
+}
+
+.profile-card h3 {
+  margin: 0 0 18px;
+  font-size: 1.1rem;
+  color: #222;
+  border-bottom: 2px solid #fff1e8;
+  padding-bottom: 12px;
+}
+
+/* کارت سفارش‌ها */
+.profile-orders-card {
+  grid-column: 1 / -1;
+}
+
+.profile-empty-orders {
+  color: #888;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  text-align: center;
+  padding: 20px 0;
+}

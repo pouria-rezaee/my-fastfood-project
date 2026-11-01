@@ -1,0 +1,107 @@
+/* لیست سفارش‌ها */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
+.order-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.order-head small,
+.order-pay {
+  display: block;
+  color: #888;
+  margin-top: 2px;
+}
+
+.order-tracker {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0 16px;
+  position: relative;
+}
+
+.order-step {
+  flex: 1;
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.order-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ddd;
+  margin: 0 auto 4px;
+}
+
+.order-step.done {
+  color: #2e7d32;
+}
+
+.order-step.done .order-dot {
+  background: #2e7d32;
+}
+
+.order-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.order-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px dashed #e5e5e5;
+  padding-top: 12px;
+}
+
+.order-total {
+  font-weight: bold;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.order-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.order-btn.primary {
+  background: #ff6900;
+  border-color: #ff6900;
+  color: #fff;
+}
+
+.order-btn.danger {
+  border-color: #e63946;
+  color: #e63946;
+}
