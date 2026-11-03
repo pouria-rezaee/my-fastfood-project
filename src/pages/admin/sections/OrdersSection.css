@@ -1,63 +1,36 @@
-.adm-order-head {
+.os-toolbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  cursor: pointer;
   gap: 10px;
   flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.os-search {
+  flex: 1;
+  min-width: 220px;
+}
+.os-select {
+  width: 190px;
 }
 
-.adm-order-head small {
+.os-result {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.os-list {
+  display: grid;
+  gap: 12px;
+}
+
+.os-more {
   display: block;
-  color: #888;
-  margin-top: 2px;
+  margin: 16px auto 0;
 }
 
-.adm-order-side {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.adm-order-body {
-  border-top: 1px dashed #e5e5e5;
-  margin-top: 14px;
-  padding-top: 14px;
-  line-height: 1.9;
-  font-size: 14px;
-}
-
-.adm-order-body h4 {
-  margin: 12px 0 6px;
-  font-size: 14px;
-  color: #555;
-}
-
-.adm-items,
-.adm-history {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.adm-items li {
-  display: flex;
-  justify-content: space-between;
-  padding: 3px 0;
-}
-
-.adm-history li small {
-  color: #999;
-  margin-right: 6px;
-}
-
-.adm-status-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.adm-status-row .adm-input {
-  max-width: 220px;
+@media (max-width: 560px) {
+  .os-select {
+    width: 100%;
+  }
 }

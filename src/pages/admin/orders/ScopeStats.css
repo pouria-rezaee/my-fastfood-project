@@ -1,0 +1,42 @@
+.ss {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.ss-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+.ss-tile span {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.ss-tile strong {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 1.45rem;
+  color: var(--ink);
+}
+.ss-tile small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+.ss-tile.brand strong {
+  color: var(--brand);
+}
+.ss-tile.warn strong {
+  color: #e65100;
+}
+.ss-tile.danger strong {
+  color: var(--danger);
+}

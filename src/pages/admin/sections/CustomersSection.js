@@ -1,70 +1,104 @@
 import { useMemo, useState } from "react";
-import StatusBadge from "../../../components/statusbadge/StatusBadge";
+import CustomerCard from "../customers/CustomerCard";
+import CustomerModal from "../customers/CustomerModal";
+import Select from "../../../components/select/Select";
 import { getAllUsers } from "../../../utils/auth";
 import { useOrders } from "../../../data/orderStore";
-import {
-  useCrm,
-  saveCustomerCrm,
-  TAGS,
-  tagLabel,
-} from "../../../data/crmStore";
-import {
-  formatPrice,
-  formatDate,
-  formatDateTime,
-  toEnglishDigits,
-} from "../../../data/format";
+import { useCrm, tagLabel } from "../../../data/crmStore";
+import { formatPrice, toEnglishDigits } from "../../../data/format";
+import { fa } from "../../../utils/jalali";
 import { downloadCsv } from "../../../utils/csv";
-import { Modal, notify } from "../ui";
+import "./CustomersSection.css";
+
+const SEGMENTS = [
+  { key: "all", label: "همه", test: () => true },
+  { key: "vip", label: "VIP", test: (c) => c.tag === "vip" },
+  { key: "regular", label: "مشتری ثابت", test: (c) => c.tag === "regular" },
+  {
+    key: "followup",
+    label: "نیاز به پیگیری",
+    test: (c) => c.tag === "followup",
+  },
+  { key: "none", label: "بدون سفارش", test: (c) => c.orderCount === 0 },
+];
+
+const SORT_OPTIONS = [
+  { value: "spend", label: "بیشترین خرید" },
+  { value: "orders", label: "بیشترین سفارش" },
+  { value: "recent", label: "آخرین سفارش" },
+  { value: "joined", label: "جدیدترین عضو" },
+  { value: "name", label: "نام (الفبایی)" },
+];
+
+const SORTERS = {
+  spend: (a, b) => b.total - a.total,
+  orders: (a, b) => b.orderCount - a.orderCount,
+  recent: (a, b) => new Date(b.last || 0) - new Date(a.last || 0),
+  joined: (a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0),
+  name: (a, b) =>
+    (a.fullName || a.username).localeCompare(b.fullName || b.username, "fa"),
+};
 
 function CustomersSection() {
   const orders = useOrders();
   const crm = useCrm();
   const [query, setQuery] = useState("");
-  const [tagFilter, setTagFilter] = useState("all");
+  const [segment, setSegment] = useState("all");
+  const [sort, setSort] = useState("spend");
   const [selected, setSelected] = useState(null);
-  const [draft, setDraft] = useState({ tag: "", note: "" });
 
-  const customers = useMemo(() => {
-    return getAllUsers()
-      .filter((u) => u.role !== "admin")
-      .map((u) => {
-        const mine = orders.filter(
-          (o) => o.username === u.username && o.status !== "cancelled",
-        );
-        const total = mine.reduce((s, o) => s + o.total, 0);
-        const last = mine.length ? mine[0].createdAt : null;
-        return {
-          ...u,
-          orderCount: mine.length,
-          total,
-          last,
-          tag: crm[u.username]?.tag || "",
-          note: crm[u.username]?.note || "",
-        };
-      })
-      .sort((a, b) => b.total - a.total);
-  }, [orders, crm]);
+  const customers = useMemo(
+    () =>
+      getAllUsers()
+        .filter((u) => u.role !== "admin")
+        .map((u) => {
+          const mine = orders.filter(
+            (o) => o.username === u.username && o.status !== "cancelled",
+          );
+          return {
+            ...u,
+            orderCount: mine.length,
+            total: mine.reduce((s, o) => s + o.total, 0),
+            last: mine.length ? mine[0].createdAt : null,
+            tag: crm[u.username]?.tag || "",
+            note: crm[u.username]?.note || "",
+          };
+        }),
+    [orders, crm],
+  );
 
   const q = toEnglishDigits(query).trim().toLowerCase();
-  const list = customers.filter((c) => {
-    if (tagFilter !== "all" && c.tag !== tagFilter) return false;
-    if (!q) return true;
-    return (
-      c.username.toLowerCase().includes(q) ||
-      (c.fullName || "").toLowerCase().includes(q) ||
-      toEnglishDigits(c.phone || "").includes(q)
-    );
-  });
+  const seg = SEGMENTS.find((s) => s.key === segment);
+  const list = customers
+    .filter(seg.test)
+    .filter(
+      (c) =>
+        !q ||
+        c.username.toLowerCase().includes(q) ||
+        (c.fullName || "").toLowerCase().includes(q) ||
+        toEnglishDigits(c.phone || "").includes(q),
+    )
+    .sort(SORTERS[sort]);
 
-  const open = (c) => {
-    setSelected(c);
-    setDraft({ tag: c.tag, note: c.note });
-  };
-
-  const save = () => {
-    if (notify(saveCustomerCrm(selected.username, draft))) setSelected(null);
-  };
+  const active = customers.filter((c) => c.orderCount > 0);
+  const totalRevenue = customers.reduce((s, c) => s + c.total, 0);
+  const tiles = [
+    { label: "کل مشتریان", value: fa(customers.length) },
+    { label: "مشتریان فعال", value: fa(active.length), sub: "حداقل یک سفارش" },
+    {
+      label: "مجموع خرید مشتریان",
+      value: formatPrice(totalRevenue),
+      sub: "تومان",
+      brand: true,
+    },
+    {
+      label: "میانگین ارزش هر مشتری",
+      value: formatPrice(
+        active.length ? Math.round(totalRevenue / active.length) : 0,
+      ),
+      sub: "تومان",
+    },
+  ];
 
   const exportCsv = () =>
     downloadCsv("customers.csv", [
@@ -88,157 +122,69 @@ function CustomersSection() {
       ]),
     ]);
 
-  const history = selected
-    ? orders.filter((o) => o.username === selected.username)
-    : [];
-
   return (
     <>
-      <div className="adm-toolbar">
+      <div className="cu-tiles">
+        {tiles.map((t) => (
+          <div key={t.label} className={`cu-tile ${t.brand ? "brand" : ""}`}>
+            <span>{t.label}</span>
+            <strong>{t.value}</strong>
+            {t.sub && <small>{t.sub}</small>}
+          </div>
+        ))}
+      </div>
+
+      <div className="cu-toolbar">
         <input
-          className="adm-input"
+          className="adm-input cu-search"
           placeholder="جستجو: نام، نام کاربری یا موبایل"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <select
-          className="adm-input adm-narrow"
-          value={tagFilter}
-          onChange={(e) => setTagFilter(e.target.value)}
-        >
-          <option value="all">همه برچسب‌ها</option>
-          {TAGS.map((t) => (
-            <option key={t.key} value={t.key}>
-              {t.label}
-            </option>
-          ))}
-        </select>
-        <button className="adm-btn" onClick={exportCsv}>
+        <div className="cu-select">
+          <Select
+            ariaLabel="مرتب‌سازی مشتریان"
+            value={sort}
+            options={SORT_OPTIONS}
+            onChange={setSort}
+          />
+        </div>
+        <button type="button" className="adm-btn" onClick={exportCsv}>
           خروجی CSV
         </button>
       </div>
 
-      <div className="adm-card adm-table-wrap">
-        <table className="adm-table">
-          <thead>
-            <tr>
-              <th>مشتری</th>
-              <th>موبایل</th>
-              <th>سفارش‌ها</th>
-              <th>مجموع خرید</th>
-              <th>آخرین سفارش</th>
-              <th>برچسب</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {list.map((c) => (
-              <tr key={c.username}>
-                <td>
-                  {c.fullName || "—"}
-                  <small className="adm-sub">@{c.username}</small>
-                </td>
-                <td>{c.phone || "—"}</td>
-                <td>{c.orderCount}</td>
-                <td>{formatPrice(c.total)}</td>
-                <td>{c.last ? formatDate(c.last) : "—"}</td>
-                <td>
-                  {c.tag ? (
-                    <span className={`adm-tag tag-${c.tag}`}>
-                      {tagLabel(c.tag)}
-                    </span>
-                  ) : (
-                    "—"
-                  )}
-                </td>
-                <td>
-                  <button className="adm-btn" onClick={() => open(c)}>
-                    مشاهده
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {list.length === 0 && <p className="adm-empty">مشتری پیدا نشد</p>}
+      <div className="adm-chips">
+        {SEGMENTS.map((s) => (
+          <button
+            key={s.key}
+            type="button"
+            className={`adm-chip ${segment === s.key ? "active" : ""}`}
+            onClick={() => setSegment(s.key)}
+          >
+            {s.label} ({fa(customers.filter(s.test).length)})
+          </button>
+        ))}
       </div>
 
+      {list.length === 0 ? (
+        <p className="adm-empty">مشتری پیدا نشد</p>
+      ) : (
+        <div className="cu-grid">
+          {list.map((c) => (
+            <CustomerCard key={c.username} customer={c} onOpen={setSelected} />
+          ))}
+        </div>
+      )}
+
       {selected && (
-        <Modal
-          title={selected.fullName || selected.username}
+        <CustomerModal
+          customer={
+            customers.find((c) => c.username === selected.username) || selected
+          }
+          orders={orders.filter((o) => o.username === selected.username)}
           onClose={() => setSelected(null)}
-        >
-          <div className="adm-grid-2">
-            <div>
-              <p>نام کاربری: @{selected.username}</p>
-              <p>موبایل: {selected.phone || "—"}</p>
-              <p>ایمیل: {selected.email || "—"}</p>
-              <p>آدرس: {selected.address || "—"}</p>
-            </div>
-            <div>
-              <p>تعداد سفارش: {selected.orderCount}</p>
-              <p>مجموع خرید: {formatPrice(selected.total)} تومان</p>
-              <p>
-                میانگین سفارش:{" "}
-                {selected.orderCount
-                  ? formatPrice(
-                      Math.round(selected.total / selected.orderCount),
-                    )
-                  : 0}{" "}
-                تومان
-              </p>
-            </div>
-          </div>
-
-          <div className="adm-field">
-            <label>برچسب</label>
-            <select
-              className="adm-input"
-              value={draft.tag}
-              onChange={(e) => setDraft({ ...draft, tag: e.target.value })}
-            >
-              {TAGS.map((t) => (
-                <option key={t.key} value={t.key}>
-                  {t.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="adm-field">
-            <label>یادداشت داخلی</label>
-            <textarea
-              className="adm-input"
-              rows="3"
-              value={draft.note}
-              onChange={(e) => setDraft({ ...draft, note: e.target.value })}
-              placeholder="مثلاً: ترجیح می‌دهد بدون پیاز سفارش بدهد"
-            />
-          </div>
-
-          <h4>سفارش‌های این مشتری</h4>
-          {history.length === 0 ? (
-            <p className="adm-empty">سفارشی ندارد</p>
-          ) : (
-            <ul className="adm-history">
-              {history.slice(0, 8).map((o) => (
-                <li key={o.id}>
-                  {o.code} · {formatPrice(o.total)}{" "}
-                  <StatusBadge status={o.status} />{" "}
-                  <small>{formatDateTime(o.createdAt)}</small>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <div className="adm-modal-foot">
-            <button className="adm-btn" onClick={() => setSelected(null)}>
-              بستن
-            </button>
-            <button className="adm-btn primary" onClick={save}>
-              ذخیره
-            </button>
-          </div>
-        </Modal>
+        />
       )}
     </>
   );

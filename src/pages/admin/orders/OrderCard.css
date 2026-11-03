@@ -1,0 +1,140 @@
+.oc {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+.oc.is-open {
+  border-color: var(--brand);
+}
+
+.oc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 16px 20px;
+  border: 0;
+  background: transparent;
+  text-align: right;
+  cursor: pointer;
+}
+.oc-id {
+  display: flex;
+  flex-direction: column;
+}
+.oc-id b {
+  font-size: 1rem;
+  color: var(--ink);
+}
+.oc-id small {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.oc-side {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.oc-total {
+  font-weight: 800;
+  color: var(--ink);
+}
+.oc-arrow {
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  transition: transform var(--transition-fast);
+}
+.oc.is-open .oc-arrow {
+  transform: rotate(180deg);
+}
+
+.oc-body {
+  padding: 4px 20px 20px;
+  border-top: 1px dashed var(--line);
+  font-size: 0.92rem;
+  line-height: 1.9;
+}
+.oc-body h4 {
+  margin: 16px 0 6px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.oc-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.oc-body p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+.oc-ltr {
+  text-align: right;
+}
+.oc-note {
+  margin-top: 4px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+}
+
+.oc-items,
+.oc-history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.oc-items li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--cream-2);
+}
+.oc-items em {
+  font-style: normal;
+  color: var(--muted);
+}
+
+.oc-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.oc-status-select {
+  width: 200px;
+}
+
+.oc-history li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-soft);
+}
+.oc-history small {
+  margin-right: auto;
+  color: var(--muted);
+}
+.oc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+@media (max-width: 560px) {
+  .oc-cols {
+    grid-template-columns: 1fr;
+  }
+  .oc-head {
+    padding: 14px 16px;
+  }
+}

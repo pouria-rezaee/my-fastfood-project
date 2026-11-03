@@ -1,32 +1,92 @@
-import { useState } from "react";
-import StatusBadge from "../../../components/statusbadge/StatusBadge";
-import { useOrders, updateOrderStatus, STATUSES, PAYMENT_LABELS, statusLabel } from "../../../data/orderStore";
-import { formatPrice, formatDateTime, toEnglishDigits } from "../../../data/format";
+import { useMemo, useState } from "react";
+import PeriodNav from "../orders/PeriodNav";
+import ScopeStats from "../orders/ScopeStats";
+import OrderCard from "../orders/OrderCard";
+import Select from "../../../components/select/Select";
+import {
+  useOrders,
+  STATUSES,
+  PAYMENT_LABELS,
+  statusLabel,
+} from "../../../data/orderStore";
+import {
+  formatPrice,
+  formatDateTime,
+  toEnglishDigits,
+} from "../../../data/format";
+import { enrich, inScope, summarize, scopeSlug } from "../../../utils/periods";
+import { fa } from "../../../utils/jalali";
 import { downloadCsv } from "../../../utils/csv";
-import { notify } from "../ui";
 import "./OrdersSection.css";
+
+const PAGE = 15;
+
+const PAYMENT_OPTIONS = [
+  { value: "", label: "همه‌ی پرداخت‌ها" },
+  { value: "paid", label: "پرداخت‌شده" },
+  { value: "pending", label: "در انتظار پرداخت" },
+  { value: "cod", label: "پرداخت در محل" },
+  { value: "refunded", label: "بازگشت وجه" },
+];
+
+const SORT_OPTIONS = [
+  { value: "new", label: "جدیدترین" },
+  { value: "old", label: "قدیمی‌ترین" },
+  { value: "high", label: "بیشترین مبلغ" },
+  { value: "low", label: "کمترین مبلغ" },
+];
+
+const SORTERS = {
+  new: (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+  old: (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+  high: (a, b) => b.total - a.total,
+  low: (a, b) => a.total - b.total,
+};
 
 function OrdersSection() {
   const orders = useOrders();
-  const [filter, setFilter] = useState("");
+  const [scope, setScope] = useState({});
+  const [status, setStatus] = useState("");
+  const [payment, setPayment] = useState("");
+  const [sort, setSort] = useState("new");
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState(null);
+  const [visible, setVisible] = useState(PAGE);
+
+  const all = useMemo(() => enrich(orders), [orders]);
+  const scoped = useMemo(
+    () => all.filter((o) => inScope(o, scope)),
+    [all, scope],
+  );
+  const stats = useMemo(() => summarize(scoped), [scoped]);
 
   const q = toEnglishDigits(query).trim().toLowerCase();
-  const list = orders.filter((o) => {
-    if (filter && o.status !== filter) return false;
-    if (!q) return true;
-    return (
-      o.code.toLowerCase().includes(q) ||
-      (o.fullName || "").toLowerCase().includes(q) ||
-      toEnglishDigits(o.phone).includes(q)
-    );
-  });
+  const list = useMemo(
+    () =>
+      scoped
+        .filter((o) => !status || o.status === status)
+        .filter((o) => !payment || o.paymentStatus === payment)
+        .filter(
+          (o) =>
+            !q ||
+            o.code.toLowerCase().includes(q) ||
+            (o.fullName || "").toLowerCase().includes(q) ||
+            toEnglishDigits(o.phone).includes(q),
+        )
+        .sort(SORTERS[sort]),
+    [scoped, status, payment, q, sort],
+  );
 
-  const countOf = (key) => orders.filter((o) => o.status === key).length;
+  const changeScope = (next) => {
+    setScope(next);
+    setOpenId(null);
+    setVisible(PAGE);
+  };
 
-  const exportCsv = () => {
-    downloadCsv("orders.csv", [
+  const countOf = (key) => scoped.filter((o) => o.status === key).length;
+
+  const exportCsv = () =>
+    downloadCsv(`orders-${scopeSlug(scope)}.csv`, [
       ["کد", "تاریخ", "مشتری", "موبایل", "مبلغ", "وضعیت", "پرداخت"],
       ...list.map((o) => [
         o.code,
@@ -38,116 +98,92 @@ function OrdersSection() {
         PAYMENT_LABELS[o.paymentStatus],
       ]),
     ]);
-  };
 
   return (
     <>
-      <div className="adm-toolbar">
+      <PeriodNav items={all} scope={scope} onChange={changeScope} />
+      <ScopeStats stats={stats} />
+
+      <div className="os-toolbar">
         <input
-          className="adm-input"
+          className="adm-input os-search"
           placeholder="جستجو: کد سفارش، نام یا موبایل"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setVisible(PAGE);
+          }}
         />
-        <button className="adm-btn" onClick={exportCsv}>
+        <div className="os-select">
+          <Select
+            ariaLabel="فیلتر پرداخت"
+            value={payment}
+            options={PAYMENT_OPTIONS}
+            onChange={setPayment}
+          />
+        </div>
+        <div className="os-select">
+          <Select
+            ariaLabel="مرتب‌سازی"
+            value={sort}
+            options={SORT_OPTIONS}
+            onChange={setSort}
+          />
+        </div>
+        <button type="button" className="adm-btn" onClick={exportCsv}>
           خروجی CSV
         </button>
       </div>
 
       <div className="adm-chips">
-        <button className={`adm-chip ${filter === "" ? "active" : ""}`} onClick={() => setFilter("")}>
-          همه ({orders.length})
+        <button
+          type="button"
+          className={`adm-chip ${status === "" ? "active" : ""}`}
+          onClick={() => setStatus("")}
+        >
+          همه ({fa(scoped.length)})
         </button>
         {STATUSES.map((s) => (
           <button
             key={s.key}
-            className={`adm-chip ${filter === s.key ? "active" : ""}`}
-            onClick={() => setFilter(s.key)}
+            type="button"
+            className={`adm-chip ${status === s.key ? "active" : ""}`}
+            onClick={() => setStatus(s.key)}
           >
-            {s.label} ({countOf(s.key)})
+            {s.label} ({fa(countOf(s.key))})
           </button>
         ))}
       </div>
 
-      {list.length === 0 && <p className="adm-empty">سفارشی پیدا نشد</p>}
-
-      <div className="adm-list">
-        {list.map((o) => {
-          const open = openId === o.id;
-          return (
-            <div key={o.id} className="adm-card adm-order">
-              <div className="adm-order-head" onClick={() => setOpenId(open ? null : o.id)}>
-                <div>
-                  <strong>{o.code}</strong>
-                  <small>
-                    {o.fullName} · {formatDateTime(o.createdAt)}
-                  </small>
-                </div>
-                <div className="adm-order-side">
-                  <b>{formatPrice(o.total)} تومان</b>
-                  <StatusBadge status={o.status} />
-                </div>
-              </div>
-
-              {open && (
-                <div className="adm-order-body">
-                  <div className="adm-grid-2">
-                    <div>
-                      <h4>اطلاعات مشتری</h4>
-                      <p>نام: {o.fullName}</p>
-                      <p>موبایل: {o.phone}</p>
-                      <p>آدرس: {o.address}</p>
-                      {o.note && <p>توضیحات: {o.note}</p>}
-                    </div>
-                    <div>
-                      <h4>پرداخت</h4>
-                      <p>{PAYMENT_LABELS[o.paymentStatus]}</p>
-                      {o.paymentRef && <p>کد تراکنش: {o.paymentRef}</p>}
-                      <p>هزینه ارسال: {o.deliveryFee === 0 ? "رایگان" : formatPrice(o.deliveryFee)}</p>
-                    </div>
-                  </div>
-
-                  <h4>اقلام</h4>
-                  <ul className="adm-items">
-                    {o.items.map((i) => (
-                      <li key={i.id}>
-                        <span>
-                          {i.name} × {i.qty}
-                        </span>
-                        <span>{formatPrice(i.price * i.qty)}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="adm-status-row">
-                    <label>تغییر وضعیت:</label>
-                    <select
-                      className="adm-input"
-                      value={o.status}
-                      onChange={(e) => notify(updateOrderStatus(o.id, e.target.value), "وضعیت به‌روز شد")}
-                    >
-                      {STATUSES.map((s) => (
-                        <option key={s.key} value={s.key}>
-                          {s.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <h4>تاریخچه</h4>
-                  <ul className="adm-history">
-                    {(o.history || []).map((h, idx) => (
-                      <li key={idx}>
-                        {statusLabel(h.status)} <small>{formatDateTime(h.at)}</small>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+      {list.length === 0 ? (
+        <p className="adm-empty">در این بازه سفارشی پیدا نشد</p>
+      ) : (
+        <>
+          <p className="os-result">
+            {fa(list.length)} سفارش · {formatPrice(summarize(list).revenue)}{" "}
+            تومان
+          </p>
+          <div className="os-list">
+            {list.slice(0, visible).map((o) => (
+              <OrderCard
+                key={o.id}
+                order={o}
+                open={openId === o.id}
+                onToggle={() => setOpenId(openId === o.id ? null : o.id)}
+              />
+            ))}
+          </div>
+          {list.length > visible && (
+            <button
+              type="button"
+              className="adm-btn os-more"
+              onClick={() => setVisible(visible + PAGE)}
+            >
+              نمایش بیشتر ({fa(list.length - visible)} سفارش دیگر)
+            </button>
+          )}
+        </>
+      )}
     </>
   );
 }

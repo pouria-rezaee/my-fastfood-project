@@ -1,0 +1,58 @@
+.cu-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.cu-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+.cu-tile span {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.cu-tile strong {
+  font-size: 1.6rem;
+  color: var(--ink);
+}
+.cu-tile.brand strong {
+  color: var(--brand);
+}
+.cu-tile small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.cu-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.cu-search {
+  flex: 1;
+  min-width: 220px;
+}
+.cu-select {
+  width: 190px;
+}
+
+.cu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 560px) {
+  .cu-select {
+    width: 100%;
+  }
+}

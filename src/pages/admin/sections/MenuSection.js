@@ -11,6 +11,7 @@ import { imageFor } from "../../../data/images";
 import { formatPrice } from "../../../data/format";
 import { fileToDataUrl } from "../../../utils/imageUpload";
 import { Modal, Field, confirmDelete, notify } from "../ui";
+import Select from "../../../components/select/Select";
 
 const EMPTY = {
   name: "",
@@ -170,17 +171,15 @@ function MenuSection() {
                 />
               </Field>
               <Field label="دسته‌بندی">
-                <select
-                  className="adm-input"
+                <Select
+                  ariaLabel="دسته‌بندی"
                   value={form.category}
-                  onChange={(e) => set("category", e.target.value)}
-                >
-                  {CATEGORIES.map((c) => (
-                    <option key={c.key} value={c.key}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
+                  options={CATEGORIES.map((c) => ({
+                    value: c.key,
+                    label: c.label,
+                  }))}
+                  onChange={(v) => set("category", v)}
+                />
               </Field>
             </div>
             <Field label="عکس">
