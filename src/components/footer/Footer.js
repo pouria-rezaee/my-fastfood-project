@@ -42,18 +42,18 @@ function Footer() {
               </div>
 
               <div className="footer-socials">
-                <a href="#" aria-label="اینستاگرام" className="social-link">
+                <button aria-label="اینستاگرام" className="social-link">
                   📷
-                </a>
-                <a href="#" aria-label="تلگرام" className="social-link">
+                </button>
+                <button aria-label="تلگرام" className="social-link">
                   ✈️
-                </a>
-                <a href="#" aria-label="واتساپ" className="social-link">
+                </button>
+                <button aria-label="واتساپ" className="social-link">
                   💬
-                </a>
-                <a href="#" aria-label="لینکدین" className="social-link">
+                </button>
+                <button aria-label="لینکدین" className="social-link">
                   💼
-                </a>
+                </button>
               </div>
             </div>
 

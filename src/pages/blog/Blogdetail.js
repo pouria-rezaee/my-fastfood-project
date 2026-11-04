@@ -12,7 +12,7 @@ const toLatinDigits = (str) =>
 /* ---------- جدا کردن شماره از ابتدای عنوان ---------- */
 function splitHeadingNumber(text) {
   // الگوهایی مثل "۱. ", "1. ", "1- ", "۱- "
-  const match = String(text).match(/^\s*([0-9۰-۹]+)\s*[\.\-–]\s*(.+)$/);
+  const match = String(text).match(/^\s*([0-9۰-۹]+)\s*[.\-–]\s*(.+)$/);
   if (match) {
     return {
       num: toLatinDigits(match[1]),
@@ -160,7 +160,9 @@ export default function BlogDetail() {
           <div className="bd-hero__meta">
             {article.date && <span>📅 {article.date}</span>}
             {article.author && <span>✍️ {article.author}</span>}
-            <span className="bg-hero__meta_time">📖 {readTime} دقیقه مطالعه</span>
+            <span className="bg-hero__meta_time">
+              📖 {readTime} دقیقه مطالعه
+            </span>
           </div>
         </div>
       </header>
@@ -205,12 +207,9 @@ export default function BlogDetail() {
       </div>
 
       <div className="bd-footer">
-        <div className="blog-detail-back-link">
+        <Link to="/blog" className="blog-detail-back-link">
           بازگشت به مقالات
-          <Link to="/blog" className="back_btn_arrow">
-            <h2>←</h2>
-          </Link>
-        </div>
+        </Link>
       </div>
 
       <button

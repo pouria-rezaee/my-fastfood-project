@@ -164,38 +164,38 @@
 /* Tablet / Mobile */
 @media (max-width: 970px) {
   .navbar-container {
-      padding: 10px 15px;
-    }
-  
+    padding: 10px 15px;
+  }
+
   .sub-container-midle,
   .sub-container-right {
-      display: none;
-    }
-  
+    display: none;
+  }
+
   .navbar-container {
-      justify-content: space-between;
-    }
-  
+    justify-content: space-between;
+  }
+
   .hamburger-menu {
-      display: flex;
-    }
+    display: flex;
+  }
 }
 
 @media (max-width: 480px) {
   .navbar-container {
-      width: 92%;
-      min-height: 65px;
-      padding: 8px 12px;
-    }
-  
+    width: 92%;
+    min-height: 65px;
+    padding: 8px 12px;
+  }
+
   .sub-container-left img {
-      width: 42px;
-      height: 42px;
-    }
-  
+    width: 42px;
+    height: 42px;
+  }
+
   .sub-container-left h3 {
-      font-size: 1.15rem;
-    }
+    font-size: 1.15rem;
+  }
 }
 
 /* آیکون سبد خرید با شمارنده */
@@ -208,13 +208,15 @@
   position: absolute;
   top: -16px;
   right: -10px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
   border-radius: 9px;
   background: #e63946;
   color: #fff;
   font-size: 11px;
-  line-height: 18px;
-  text-align: center;
+  line-height: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -25,13 +25,13 @@
 .user-menu button {
   padding: 8px 14px;
   border: 0;
-  border-radius: var(--radius-full);
+  /* border-radius: var(--radius-full); */
   background: transparent;
   color: var(--muted);
   font-size: 0.88rem;
-  font-weight: 600;
   cursor: pointer;
 }
 .user-menu button:hover {
-  color: var(--danger);
+  color: #fff;
+  background: var(--brand);
 }
